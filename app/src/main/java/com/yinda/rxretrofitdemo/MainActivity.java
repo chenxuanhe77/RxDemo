@@ -22,6 +22,7 @@ import io.reactivex.disposables.Disposable;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     private static final String TAG = "MainActivity";
     TextView txt_login;
+    TextView txt_login1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
