@@ -27,7 +27,7 @@ public class RetrofitFactory {
     /**
      * 初始化接口类
      */
-    private static HttpImpl http = new Retrofit.Builder()
+    private static HttpImpl retrofit = new Retrofit.Builder()
 //                .baseUrl("https://www.baidu.com/?tn=99055797_hao_pg")
             .baseUrl("http://13.13.13.186:8080")
             .addConverterFactory(GsonConverterFactory.create())
@@ -36,12 +36,15 @@ public class RetrofitFactory {
             .build()
             .create(HttpImpl.class);
 
+
     /**
      * 获取实例
+     *
      * @return
      */
     public static HttpImpl getInstance() {
-        return http;
+
+        return retrofit;
     }
 
 }

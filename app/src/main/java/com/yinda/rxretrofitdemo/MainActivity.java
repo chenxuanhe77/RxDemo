@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.yinda.rxretrofitdemo.gson.LoginData;
 import com.yinda.rxretrofitdemo.http.MyRxHttp;
+import com.yinda.rxretrofitdemo.http.RetrofitFactory;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -22,7 +23,6 @@ import io.reactivex.disposables.Disposable;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     private static final String TAG = "MainActivity";
     TextView txt_login;
-    TextView txt_login1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 } catch (JSONException E) {
                     E.printStackTrace();
                 }
-                MyRxHttp.postHttp(param, observer);
+                MyRxHttp.toSubscribe(RetrofitFactory.getInstance().login(param), observer);
                 break;
         }
     }

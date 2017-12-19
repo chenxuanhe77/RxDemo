@@ -1,9 +1,6 @@
 package com.yinda.rxretrofitdemo.http;
 
-import com.yinda.rxretrofitdemo.gson.LoginData;
-
-import java.util.Map;
-
+import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
@@ -14,13 +11,19 @@ import io.reactivex.schedulers.Schedulers;
 
 public class MyRxHttp {
 
-
-    public static void postHttp(Map<String, Object> map, Observer<LoginData> observer) {
-        RetrofitFactory.getInstance()
-                .login(map)
+    /**
+     * 封装订阅方法
+     *
+     * @param observable
+     * @param observer
+     * @param <T>
+     */
+    public static <T> void toSubscribe(Observable<T> observable, Observer<T> observer) {
+        observable
                 .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observer);
-
     }
+
 }
