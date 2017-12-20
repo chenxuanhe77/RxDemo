@@ -15,12 +15,10 @@ public class ProgressObserver<T> implements Observer<T> {
 
     private HttpDialog dialog;
     private OperateListener listener;
-    private Context context;
     private Disposable d;
 
     public ProgressObserver(Context context, OperateListener listener) {
         this.listener = listener;
-        this.context = context;
         if (dialog == null) {
             dialog = new HttpDialog(context);
         }
