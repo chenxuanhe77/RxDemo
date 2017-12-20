@@ -10,13 +10,16 @@ import com.yinda.rxretrofitdemo.gson.LoginData;
 import com.yinda.rxretrofitdemo.http.MyRxHttp;
 import com.yinda.rxretrofitdemo.http.ProgressObserver;
 import com.yinda.rxretrofitdemo.http.RetrofitFactory;
+import com.yinda.rxretrofitdemo.http.StandardObserver;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.util.HashMap;
 
 import io.reactivex.disposables.Disposable;
+import okhttp3.ResponseBody;
 
 public class MainActivity extends BaseActivity implements View.OnClickListener {
 
@@ -27,6 +30,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         Button btn_login = findViewById(R.id.btn_login);
         btn_login.setOnClickListener(this);
+        Button btn_baidu = findViewById(R.id.btn_baidu);
+        btn_baidu.setOnClickListener(this);
         txt_login = findViewById(R.id.txt_login);
     }
 
@@ -44,6 +49,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         switch (v.getId()) {
             case R.id.btn_login:
                 login();
+                break;
+            case R.id.btn_baidu:
+                baidu();
                 break;
         }
     }
@@ -70,6 +78,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
                     @Override
                     public void onNext(LoginData loginData) {
+                        System.out.println(loginData.toString());
                         txt_login.setText(loginData.toString());
                     }
 
@@ -84,6 +93,38 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                     }
                 });
         MyRxHttp.toSubscribe(RetrofitFactory.getInstance().login(param), observer);
+    }
+
+    private void baidu() {
+        StandardObserver<ResponseBody> observer = new StandardObserver<ResponseBody>(
+                new StandardObserver.OperateListener<ResponseBody>() {
+
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(ResponseBody responseBody) {
+                        try {
+                            System.out.println(responseBody.string());
+                            txt_login.setText(responseBody.string());
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+        MyRxHttp.toSubscribe(RetrofitFactory.getInstanceBaidu().baidu(), observer);
     }
 
 }

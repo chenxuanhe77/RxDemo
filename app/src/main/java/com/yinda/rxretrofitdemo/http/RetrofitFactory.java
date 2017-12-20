@@ -37,6 +37,15 @@ public class RetrofitFactory {
             .build()
             .create(HttpImpl.class);
 
+    private static HttpImpl retrofitBaidu = new Retrofit.Builder()
+                .baseUrl("https://www.baidu.com/?tn=99055797_hao_pg")
+//            .baseUrl("http://13.13.13.186:8080")
+            .addConverterFactory(GsonConverterFactory.create())
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+            .client(okHttpClient)
+            .build()
+            .create(HttpImpl.class);
+
 
     /**
      * 获取实例
@@ -47,7 +56,10 @@ public class RetrofitFactory {
 
         return retrofit;
     }
+    public static HttpImpl getInstanceBaidu() {
 
+        return retrofitBaidu;
+    }
 }
 
 

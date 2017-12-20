@@ -6,7 +6,6 @@ import java.util.Map;
 
 import io.reactivex.Observable;
 import okhttp3.ResponseBody;
-import retrofit2.Call;
 import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
@@ -23,6 +22,6 @@ public interface HttpImpl {
     Observable<LoginData> login(@FieldMap Map<String, Object> map);
 
     @GET("/")
-    Call<ResponseBody> baidu();
+    Observable<ResponseBody> baidu();
 
 }
