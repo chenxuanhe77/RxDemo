@@ -21,6 +21,7 @@ public class RetrofitFactory {
      */
     private static OkHttpClient okHttpClient = new OkHttpClient.Builder()
             .connectTimeout(10, TimeUnit.SECONDS)
+            .writeTimeout(10,TimeUnit.SECONDS)
             .readTimeout(10, TimeUnit.SECONDS)
             .build();
 
